@@ -9,8 +9,8 @@
 </head>
 <body>
 
-  <header>
-    <div class="logo">ShopEase<span>.</span></div>
+  <header class="header">
+    <a href="#" class="logo">ShopEase<span>.</span></a>
 
     <nav>
       <a href="#home">Home</a>
@@ -18,53 +18,97 @@
       <a href="#categories">Categories</a>
     </nav>
 
-    <button class="cart-btn" onclick="showCart()">
+    <button class="cart-button" onclick="showCart()">
       🛒 Cart (<span id="cart-count">0</span>)
     </button>
   </header>
 
   <section class="hero" id="home">
     <div class="hero-content">
-      <p class="tagline">WELCOME TO SHOPEASE</p>
-      <h1>Find Your Style.<br>Shop With Ease.</h1>
+      <p class="hero-tag">WELCOME TO SHOPEASE</p>
+      <h1>Shop Smart.<br>Live Better.</h1>
       <p>Discover amazing products at great prices.</p>
-      <a href="#products" class="shop-btn">Shop Now →</a>
+      <a href="#products" class="shop-button">Explore Products</a>
     </div>
   </section>
 
-  <section class="categories" id="categories">
-    <h2>Shop By Category</h2>
-    <div class="category-list">
-      <button onclick="filterProducts('All')">All</button>
-      <button onclick="filterProducts('Fashion')">Fashion</button>
-      <button onclick="filterProducts('Electronics')">Electronics</button>
-      <button onclick="filterProducts('Accessories')">Accessories</button>
+  <main class="container" id="products">
+    <div class="section-heading">
+      <p>OUR COLLECTION</p>
+      <h2>Explore Products</h2>
     </div>
-  </section>
-
-  <section class="products" id="products">
-    <h2>Our Products</h2>
 
     <input
       type="text"
       id="search"
       placeholder="Search products..."
       oninput="searchProducts()"
+      class="search-box"
     >
 
-    <div class="product-grid" id="product-grid"></div>
-  </section>
+    <div class="categories" id="categories">
+      <button onclick="filterCategory('All')">All</button>
+      <button onclick="filterCategory('Fashion')">Fashion</button>
+      <button onclick="filterCategory('Electronics')">Electronics</button>
+      <button onclick="filterCategory('Accessories')">Accessories</button>
+    </div>
 
-  <section class="cart-section" id="cart-section">
-    <h2>Your Shopping Cart</h2>
-    <div id="cart-items">Your cart is empty.</div>
-    <h3>Total: ₹<span id="cart-total">0</span></h3>
-    <button class="checkout-btn" onclick="checkout()">Checkout</button>
-  </section>
+    <div class="product-grid" id="product-grid"></div>
+
+    <section class="cart-section" id="cart-section">
+      <h2>Your Shopping Cart</h2>
+      <div id="cart-items"></div>
+
+      <div class="cart-summary">
+        <h3>Total: ₹<span id="cart-total">0</span></h3>
+        <button onclick="showCheckout()" class="checkout-button">
+          Proceed to Checkout
+        </button>
+      </div>
+    </section>
+
+    <section class="checkout-section" id="checkout-section">
+      <h2>Checkout</h2>
+      <p class="checkout-subtitle">Complete your details to place your demo order.</p>
+
+      <div class="checkout-layout">
+        <form id="checkout-form" onsubmit="placeOrder(event)">
+          <label for="customer-name">Full Name</label>
+          <input type="text" id="customer-name" placeholder="Enter your name" required>
+
+          <label for="customer-phone">Mobile Number</label>
+          <input type="tel" id="customer-phone" placeholder="10-digit mobile number"
+            pattern="[0-9]{10}" maxlength="10" required>
+
+          <label for="customer-address">Delivery Address</label>
+          <textarea id="customer-address" rows="4"
+            placeholder="House number, street, city, PIN code" required></textarea>
+
+          <button type="submit" class="checkout-button">
+            Place Demo Order
+          </button>
+        </form>
+
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+          <div id="checkout-items"></div>
+          <div class="summary-total">
+            <span>Total Amount</span>
+            <strong>₹<span id="checkout-total">0</span></strong>
+          </div>
+        </div>
+      </div>
+
+      <p id="order-message"></p>
+      <button onclick="closeCheckout()" class="back-button">
+        Back to Shopping
+      </button>
+    </section>
+  </main>
 
   <footer>
     <h2>ShopEase.</h2>
-    <p>Shop Smart. Live Better.</p>
+    <p>Shopping Made Simple.</p>
     <p>© 2026 ShopEase. All Rights Reserved.</p>
   </footer>
 
