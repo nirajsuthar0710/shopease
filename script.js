@@ -82,6 +82,7 @@ function displayProducts(list) {
 function filterProducts(category) {
   currentCategory = category;
   document.getElementById("search").value = "";
+
   const filtered = category === "All"
     ? products
     : products.filter(p => p.category === category);
@@ -116,13 +117,26 @@ function addToCart(index) {
   updateCart();
 }
 
+function changeQuantity(index, amount) {
+  cart[index].quantity += amount;
+
+  if (cart[index].quantity <= 0) {
+    cart.splice(index, 1);
+  }
+
+  updateCart();
+}
+
 function removeFromCart(index) {
   cart.splice(index, 1);
   updateCart();
 }
 
 function updateCart() {
-  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const count = cart.reduce(
+    (sum, item) => sum + item.quantity, 0
+  );
+
   const total = cart.reduce(
     (sum, item) => sum + item.price * item.quantity, 0
   );
@@ -139,9 +153,18 @@ function updateCart() {
 
   cartItems.innerHTML = cart.map((item, index) => `
     <div class="cart-row">
-      <span>${item.name} × ${item.quantity}</span>
-      <span>₹${item.price * item.quantity}</span>
-      <button class="remove-btn" onclick="removeFromCart(${index})">
+      <span class="cart-product-name">${item.name}</span>
+
+      <div class="quantity-controls">
+        <button onclick="changeQuantity(${index}, -1)">−</button>
+        <span>${item.quantity}</span>
+        <button onclick="changeQuantity(${index}, 1)">+</button>
+      </div>
+
+      <strong>₹${item.price * item.quantity}</strong>
+
+      <button class="remove-btn"
+        onclick="removeFromCart(${index})">
         Remove
       </button>
     </div>
