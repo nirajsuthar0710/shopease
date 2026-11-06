@@ -1,67 +1,20 @@
 
 const products = [
-  {
-    id: 1,
-    name: "Classic T-Shirt",
-    price: 499,
-    category: "Fashion",
-    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600"
-  },
-  {
-    id: 2,
-    name: "Stylish Sneakers",
-    price: 1299,
-    category: "Fashion",
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"
-  },
-  {
-    id: 3,
-    name: "Smart Watch",
-    price: 1999,
-    category: "Electronics",
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600"
-  },
-  {
-    id: 4,
-    name: "Headphones",
-    price: 999,
-    category: "Electronics",
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600"
-  },
-  {
-    id: 5,
-    name: "Classic Sunglasses",
-    price: 599,
-    category: "Accessories",
-    image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600"
-  },
-  {
-    id: 6,
-    name: "Leather Watch",
-    price: 1499,
-    category: "Accessories",
-    image: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600"
-  },
-  {
-    id: 7,
-    name: "Casual Shoes",
-    price: 1099,
-    category: "Fashion",
-    image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600"
-  },
-  {
-    id: 8,
-    name: "Wireless Earbuds",
-    price: 799,
-    category: "Electronics",
-    image: "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=600"
-  }
+  { id: 1, name: "Classic T-Shirt", price: 499, category: "Fashion", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600" },
+  { id: 2, name: "Stylish Sneakers", price: 1299, category: "Fashion", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600" },
+  { id: 3, name: "Smart Watch", price: 1999, category: "Electronics", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600" },
+  { id: 4, name: "Headphones", price: 999, category: "Electronics", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600" },
+  { id: 5, name: "Classic Sunglasses", price: 599, category: "Accessories", image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600" },
+  { id: 6, name: "Leather Watch", price: 1499, category: "Accessories", image: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600" },
+  { id: 7, name: "Casual Shoes", price: 1099, category: "Fashion", image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600" },
+  { id: 8, name: "Wireless Earbuds", price: 799, category: "Electronics", image: "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=600" }
 ];
 
 let cart = [];
 
 function displayProducts(list = products) {
   const grid = document.getElementById("product-grid");
+  if (!grid) return;
 
   grid.innerHTML = "";
 
@@ -77,9 +30,7 @@ function displayProducts(list = products) {
         <div class="product-info">
           <h3>${product.name}</h3>
           <p>₹${product.price}</p>
-          <button onclick="addToCart(${product.id})">
-            Add to Cart
-          </button>
+          <button onclick="addToCart(${product.id})">Add to Cart</button>
         </div>
       </div>
     `;
@@ -87,12 +38,14 @@ function displayProducts(list = products) {
 }
 
 function addToCart(id) {
+  const product = products.find(item => item.id === id);
+  if (!product) return;
+
   const existing = cart.find(item => item.id === id);
 
   if (existing) {
     existing.quantity++;
   } else {
-    const product = products.find(item => item.id === id);
     cart.push({ ...product, quantity: 1 });
   }
 
@@ -101,7 +54,6 @@ function addToCart(id) {
 
 function changeQuantity(id, amount) {
   const item = cart.find(product => product.id === id);
-
   if (!item) return;
 
   item.quantity += amount;
@@ -123,42 +75,45 @@ function updateCart() {
   const cartTotal = document.getElementById("cart-total");
   const cartCount = document.getElementById("cart-count");
 
-  cartItems.innerHTML = "";
-
   let total = 0;
   let count = 0;
 
-  cart.forEach(item => {
-    const itemTotal = item.price * item.quantity;
+  if (cartItems) {
+    cartItems.innerHTML = "";
 
-    total += itemTotal;
-    count += item.quantity;
+    cart.forEach(item => {
+      const itemTotal = item.price * item.quantity;
+      total += itemTotal;
+      count += item.quantity;
 
-    cartItems.innerHTML += `
-      <div class="cart-row">
-        <div>
-          <div class="cart-product-name">${item.name}</div>
-          <div>₹${item.price} × ${item.quantity} = ₹${itemTotal}</div>
+      cartItems.innerHTML += `
+        <div class="cart-row">
+          <div>
+            <div class="cart-product-name">${item.name}</div>
+            <div>₹${item.price} × ${item.quantity} = ₹${itemTotal}</div>
+          </div>
+          <div class="quantity-controls">
+            <button onclick="changeQuantity(${item.id}, -1)">−</button>
+            <span>${item.quantity}</span>
+            <button onclick="changeQuantity(${item.id}, 1)">+</button>
+            <button class="remove-btn" onclick="removeFromCart(${item.id})">Remove</button>
+          </div>
         </div>
+      `;
+    });
 
-        <div class="quantity-controls">
-          <button onclick="changeQuantity(${item.id}, -1)">−</button>
-          <span>${item.quantity}</span>
-          <button onclick="changeQuantity(${item.id}, 1)">+</button>
-          <button class="remove-btn" onclick="removeFromCart(${item.id})">
-            Remove
-          </button>
-        </div>
-      </div>
-    `;
-  });
-
-  if (cart.length === 0) {
-    cartItems.innerHTML = "<p>Your cart is empty.</p>";
+    if (cart.length === 0) {
+      cartItems.innerHTML = "<p>Your cart is empty.</p>";
+    }
+  } else {
+    cart.forEach(item => {
+      total += item.price * item.quantity;
+      count += item.quantity;
+    });
   }
 
-  cartTotal.textContent = total;
-  cartCount.textContent = count;
+  if (cartTotal) cartTotal.textContent = total;
+  if (cartCount) cartCount.textContent = count;
 
   updateCheckoutSummary();
 }
@@ -167,8 +122,9 @@ function updateCheckoutSummary() {
   const checkoutItems = document.getElementById("checkout-items");
   const checkoutTotal = document.getElementById("checkout-total");
 
-  checkoutItems.innerHTML = "";
+  if (!checkoutItems || !checkoutTotal) return;
 
+  checkoutItems.innerHTML = "";
   let total = 0;
 
   cart.forEach(item => {
@@ -187,9 +143,8 @@ function updateCheckoutSummary() {
 }
 
 function showCart() {
-  document.getElementById("cart-section").scrollIntoView({
-    behavior: "smooth"
-  });
+  const section = document.getElementById("cart-section");
+  if (section) section.scrollIntoView({ behavior: "smooth" });
 }
 
 function filterCategory(category) {
@@ -201,7 +156,10 @@ function filterCategory(category) {
 }
 
 function searchProducts() {
-  const search = document.getElementById("search").value.toLowerCase();
+  const searchBox = document.getElementById("search");
+  if (!searchBox) return;
+
+  const search = searchBox.value.toLowerCase();
 
   const filtered = products.filter(item =>
     item.name.toLowerCase().includes(search) ||
@@ -217,22 +175,31 @@ function showCheckout() {
     return;
   }
 
-  document.getElementById("checkout-section").style.display = "block";
-  document.getElementById("order-message").textContent = "";
+  const section = document.getElementById("checkout-section");
+
+  if (!section) {
+    alert("Checkout section missing. Please check index.html.");
+    return;
+  }
+
+  section.style.display = "block";
+
+  const message = document.getElementById("order-message");
+  if (message) message.textContent = "";
+
+  const form = document.getElementById("checkout-form");
+  if (form) form.style.display = "flex";
 
   updateCheckoutSummary();
 
-  document.getElementById("checkout-section").scrollIntoView({
-    behavior: "smooth"
-  });
+  section.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function closeCheckout() {
-  document.getElementById("checkout-section").style.display = "none";
+  const section = document.getElementById("checkout-section");
+  if (section) section.style.display = "none";
 
-  document.getElementById("cart-section").scrollIntoView({
-    behavior: "smooth"
-  });
+  showCart();
 }
 
 function placeOrder(event) {
@@ -253,8 +220,7 @@ function placeOrder(event) {
   }
 
   const orderTotal = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
+    (sum, item) => sum + item.price * item.quantity, 0
   );
 
   document.getElementById("order-message").textContent =
@@ -267,7 +233,11 @@ function placeOrder(event) {
   document.getElementById("checkout-form").style.display = "none";
 }
 
-document.getElementById("checkout-section").style.display = "none";
+document.addEventListener("DOMContentLoaded", function () {
+  const checkout = document.getElementById("checkout-section");
 
-displayProducts();
-updateCart();
+  if (checkout) checkout.style.display = "none";
+
+  displayProducts();
+  updateCart();
+});
