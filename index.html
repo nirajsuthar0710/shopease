@@ -2,250 +2,283 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ShopEase | Online Shopping</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f5f6fa;color:#172033}
-header{background:#172033;color:white;padding:18px 7%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
-.logo{font-size:27px;font-weight:bold;color:#ffb454}
-nav a{color:white;text-decoration:none;margin-left:20px}
-.cart-top{background:#ff784f;color:white;padding:10px 16px;border-radius:8px;font-weight:bold}
-.hero{padding:65px 7%;background:linear-gradient(120deg,#172033,#344d72);color:white}
-.hero h1{font-size:42px;margin-bottom:14px}
-.hero p{font-size:17px;color:#e0e7f2}
-.hero button{margin-top:22px;padding:13px 22px;border:0;border-radius:7px;background:#ff784f;color:white;font-weight:bold;cursor:pointer}
-.section{padding:45px 7%}
-.section h2{font-size:28px;margin-bottom:22px}
-.tools{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:25px}
-input,select{padding:12px;border:1px solid #d5d9e2;border-radius:7px;font-size:15px}
-#search{flex:1;min-width:200px}
-.products{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 15px #17203312;padding-bottom:16px}
-.card img{width:100%;height:190px;object-fit:cover;background:#eee}
-.card h3{font-size:17px;margin:13px 13px 7px}
-.price{margin:0 13px 12px;color:#e66b3e;font-size:19px;font-weight:bold}
-.card button{display:block;width:calc(100% - 26px);margin:8px 13px;padding:11px;border:0;border-radius:7px;color:white;font-weight:bold;cursor:pointer}
-.details-btn{background:#263c5b}
-.add-btn{background:#ff784f}
-.card button:hover, .hero button:hover{opacity:.85}
-.cart-box,.checkout-box{background:white;padding:22px;border-radius:12px;margin-top:15px;box-shadow:0 4px 15px #17203310}
-.cart-item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #eee;flex-wrap:wrap}
-.cart-item button{padding:6px 10px;border:0;border-radius:5px;cursor:pointer;background:#263c5b;color:white}
-.cart-item .remove{background:#e55353}
-.total{font-size:22px;font-weight:bold;margin-top:18px}
-.checkout-box{max-width:550px}
-.checkout-box input{display:block;width:100%;margin:12px 0}
-.primary{background:#ff784f;color:white;border:0;padding:12px 18px;border-radius:7px;cursor:pointer;font-weight:bold;margin-top:12px}
-footer{text-align:center;background:#172033;color:white;padding:25px;margin-top:35px}
-.modal{display:none;position:fixed;inset:0;background:#0009;z-index:10;align-items:center;justify-content:center;padding:18px}
-.modal-content{background:white;border-radius:12px;padding:22px;max-width:440px;width:100%;position:relative;max-height:90vh;overflow:auto}
-.modal-content img{width:100%;height:220px;object-fit:cover;border-radius:8px;margin:12px 0}
-.close{position:absolute;right:15px;top:12px;font-size:26px;border:0;background:none;cursor:pointer}
-.empty{color:#687386;padding:10px 0}
-@media(max-width:900px){.products{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:550px){
- header{padding:16px 5%}
- nav a{margin:0 8px 0 0;font-size:14px}
- .hero{padding:48px 6%}
- .hero h1{font-size:32px}
- .section{padding:32px 5%}
- .products{grid-template-columns:1fr 1fr;gap:12px}
- .card img{height:145px}
- .card h3{font-size:15px}
- .card button{font-size:12px;padding:10px;width:calc(100% - 18px);margin:7px 9px}
- .price{font-size:16px;margin-left:9px}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Neeraj Suthar - Student and aspiring web developer. Explore my web projects, skills and learning journey.">
+  <meta name="theme-color" content="#080b14">
+  <title>Neeraj Suthar | Web Developer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-  <div class="logo">ShopEase 🛍️</div>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#products">Products</a>
-    <a href="#cart">Cart</a>
-  </nav>
-  <div class="cart-top">Cart: <span id="cartCount">0</span></div>
-</header>
+  <div class="page-glow"></div>
 
-<section class="hero" id="home">
-  <h1>Shop Smart. Live Better.</h1>
-  <p>Discover amazing products at great prices.</p>
-  <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Explore Products</button>
-</section>
+  <header class="header">
+    <nav class="navbar container">
+      <a href="#home" class="logo">NS<span>.</span></a>
 
-<section class="section" id="products">
-  <h2>Our Products</h2>
-  <div class="tools">
-    <input id="search" type="text" placeholder="Search products..." oninput="renderProducts()">
-    <select id="category" onchange="renderProducts()">
-      <option value="All">All Categories</option>
-      <option value="Fashion">Fashion</option>
-      <option value="Electronics">Electronics</option>
-      <option value="Accessories">Accessories</option>
-      <option value="Home">Home</option>
-    </select>
-  </div>
-  <div class="products" id="productGrid"></div>
-</section>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
 
-<section class="section" id="cart">
-  <h2>🛒 Your Shopping Cart</h2>
-  <div class="cart-box">
-    <div id="cartItems"><p class="empty">Your cart is empty.</p></div>
-    <div class="total">Total: ₹<span id="cartTotal">0</span></div>
-  </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#goals">Goals</a></li>
+        <li><a href="#contact" class="nav-contact">Contact Me ↗</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <div class="checkout-box">
-    <h2>Checkout</h2>
-    <p>Demo checkout form — no real payment is collected.</p>
-    <form id="checkoutForm">
-      <input id="customerName" type="text" placeholder="Your Name" required>
-      <input id="customerEmail" type="email" placeholder="Your Email" required>
-      <input id="customerAddress" type="text" placeholder="Delivery Address" required>
-      <button class="primary" type="submit">Place Demo Order</button>
-    </form>
-    <p id="orderMessage"></p>
-  </div>
-</section>
+  <main>
+    <section class="hero container" id="home">
+      <div class="hero-content reveal">
+        <div class="availability">
+          <span class="status-dot"></span>
+          STUDENT · ASPIRING WEB DEVELOPER
+        </div>
 
-<footer>
-  <h3>ShopEase 🛍️</h3>
-  <p>Shop Smart. Live Better.</p>
-  <p>© 2026 ShopEase. Demo Shopping Website.</p>
-</footer>
+        <p class="eyebrow">WELCOME TO MY DIGITAL SPACE</p>
+        <h1>Hi, I'm <span class="gradient-text">Neeraj Suthar.</span></h1>
+        <h2>I build <span id="changingText">modern websites.</span></h2>
 
-<div class="modal" id="detailsModal" onclick="closeOutside(event)">
-  <div class="modal-content">
-    <button class="close" onclick="closeDetails()">×</button>
-    <div id="detailsContent"></div>
-  </div>
-</div>
+        <p class="hero-description">
+          I'm a student exploring the world of web development.
+          I enjoy turning ideas into useful, creative and user-friendly websites.
+        </p>
 
-<script>
-const products = [
- {id:1,name:"Classic T-Shirt",price:499,category:"Fashion",image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600",description:"Comfortable everyday cotton T-shirt."},
- {id:2,name:"Running Shoes",price:1299,category:"Fashion",image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",description:"Sporty shoes for everyday comfort."},
- {id:3,name:"Smart Watch",price:1999,category:"Electronics",image:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",description:"A stylish smartwatch design."},
- {id:4,name:"Headphones",price:999,category:"Electronics",image:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600",description:"Enjoy your favourite audio."},
- {id:5,name:"Sunglasses",price:399,category:"Accessories",image:"https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600",description:"Classic sunglasses for daily style."},
- {id:6,name:"Backpack",price:799,category:"Accessories",image:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600",description:"A useful backpack for everyday needs."},
- {id:7,name:"Desk Lamp",price:699,category:"Home",image:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600",description:"A modern lamp for your desk."},
- {id:8,name:"Coffee Mug",price:249,category:"Home",image:"https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600",description:"A simple mug for your favourite drink."}
-];
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary">Explore My Work <span>↗</span></a>
+          <a href="#contact" class="btn btn-outline">Get In Touch</a>
+        </div>
 
-let cart = [];
+        <a class="github-link" href="https://github.com/nirajsuthar0710" target="_blank" rel="noopener noreferrer">
+          <span>⌘</span> Explore my GitHub profile ↗
+        </a>
+      </div>
 
-function renderProducts(){
- const grid=document.getElementById("productGrid");
- const search=document.getElementById("search").value.toLowerCase();
- const category=document.getElementById("category").value;
- const filtered=products.filter(p=>
-   p.name.toLowerCase().includes(search) &&
-   (category==="All" || p.category===category)
- );
+      <div class="hero-visual reveal">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="profile-card">
+          <div class="profile-top">
+            <span class="window-dot"></span>
+            <span class="window-dot"></span>
+            <span class="window-dot"></span>
+            <span class="profile-label">MY PROFILE</span>
+          </div>
+          <div class="profile-avatar">NS<span>.</span></div>
+          <h3>Neeraj Suthar</h3>
+          <p>Student & Web Developer</p>
+          <div class="profile-divider"></div>
+          <div class="profile-stats">
+            <div><strong>05</strong><span>Projects</span></div>
+            <div><strong>03</strong><span>Core Skills</span></div>
+            <div><strong>∞</strong><span>Ideas</span></div>
+          </div>
+          <div class="code-chip">&lt; Building my future /&gt;</div>
+        </div>
+        <div class="floating-tag tag-html">HTML5</div>
+        <div class="floating-tag tag-css">CSS3</div>
+        <div class="floating-tag tag-js">JS</div>
+      </div>
+    </section>
 
- if(filtered.length===0){
-   grid.innerHTML='<p class="empty">No products found.</p>';
-   return;
- }
+    <section class="stats-strip container reveal">
+      <div><strong>05+</strong><span>Website Projects</span></div>
+      <div><strong>03</strong><span>Core Technologies</span></div>
+      <div><strong>100%</strong><span>Learning Mindset</span></div>
+    </section>
 
- grid.innerHTML=filtered.map(p=>`
-  <div class="card">
-   <img src="${p.image}" alt="${p.name}" loading="lazy">
-   <h3>${p.name}</h3>
-   <p class="price">₹${p.price}</p>
-   <button class="details-btn" type="button" onclick="showDetails(${p.id})">View Details</button>
-   <button class="add-btn" type="button" onclick="addToCart(${p.id})">Add to Cart</button>
-  </div>
- `).join("");
-}
+    <section class="section container" id="about">
+      <div class="section-heading reveal">
+        <p class="eyebrow">GET TO KNOW ME</p>
+        <h2>About <span class="gradient-text">Me</span></h2>
+        <p>A little introduction about who I am and what I do.</p>
+      </div>
 
-function showDetails(id){
- const p=products.find(item=>item.id===id);
- if(!p)return;
- document.getElementById("detailsContent").innerHTML=`
-  <h2>${p.name}</h2>
-  <img src="${p.image}" alt="${p.name}">
-  <p>${p.description}</p>
-  <p><b>Category:</b> ${p.category}</p>
-  <p class="price">₹${p.price}</p>
-  <button class="primary" onclick="addToCart(${p.id});closeDetails()">Add to Cart</button>
- `;
- document.getElementById("detailsModal").style.display="flex";
-}
+      <div class="about-grid">
+        <div class="about-main glass-card reveal">
+          <span class="card-icon">✦</span>
+          <h3>My Journey</h3>
+          <p>
+            Hello! I'm Neeraj Suthar, a student passionate about technology
+            and creative problem-solving. I'm exploring web development
+            by building practical website projects.
+          </p>
+          <p>
+            I enjoy experimenting with layouts, learning how websites work
+            and improving my projects step by step. Every project is a new
+            opportunity to learn something.
+          </p>
+        </div>
 
-function closeDetails(){
- document.getElementById("detailsModal").style.display="none";
-}
-function closeOutside(event){
- if(event.target.id==="detailsModal")closeDetails();
-}
+        <div class="about-side glass-card reveal">
+          <span class="card-icon">🎯</span>
+          <h3>My Focus</h3>
+          <p>Learn the fundamentals, build useful projects and keep improving.</p>
+          <div class="focus-tags">
+            <span>Creativity</span><span>Consistency</span><span>Learning</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-function addToCart(id){
- const item=cart.find(p=>p.id===id);
- if(item)item.qty++;
- else cart.push({...products.find(p=>p.id===id),qty:1});
- renderCart();
-}
+    <section class="section container" id="skills">
+      <div class="section-heading reveal">
+        <p class="eyebrow">WHAT I'M LEARNING</p>
+        <h2>My <span class="gradient-text">Skills</span></h2>
+        <p>Technologies and abilities I'm practising through projects.</p>
+      </div>
 
-function changeQty(id,change){
- const item=cart.find(p=>p.id===id);
- if(!item)return;
- item.qty+=change;
- if(item.qty<=0)cart=cart.filter(p=>p.id!==id);
- renderCart();
-}
+      <div class="skills-grid">
+        <article class="skill-card glass-card reveal">
+          <div class="skill-icon html-icon">5</div>
+          <h3>HTML</h3>
+          <p>Building the structure and content of web pages.</p>
+          <span class="skill-level">Learning & Practising</span>
+        </article>
+        <article class="skill-card glass-card reveal">
+          <div class="skill-icon css-icon">✦</div>
+          <h3>CSS</h3>
+          <p>Creating layouts, visual styles and responsive designs.</p>
+          <span class="skill-level">Learning & Practising</span>
+        </article>
+        <article class="skill-card glass-card reveal">
+          <div class="skill-icon js-icon">JS</div>
+          <h3>JavaScript</h3>
+          <p>Exploring interactions and useful website features.</p>
+          <span class="skill-level">Learning & Practising</span>
+        </article>
+        <article class="skill-card glass-card reveal">
+          <div class="skill-icon responsive-icon">▣</div>
+          <h3>Responsive Design</h3>
+          <p>Practising layouts for phones, tablets and desktops.</p>
+          <span class="skill-level">Developing</span>
+        </article>
+        <article class="skill-card glass-card reveal">
+          <div class="skill-icon problem-icon">⌘</div>
+          <h3>Problem Solving</h3>
+          <p>Testing, debugging and finding ways to improve projects.</p>
+          <span class="skill-level">Developing</span>
+        </article>
+        <article class="skill-card glass-card reveal">
+          <div class="skill-icon learn-icon">↗</div>
+          <h3>Continuous Learning</h3>
+          <p>Building projects and learning from each experience.</p>
+          <span class="skill-level">Always Improving</span>
+        </article>
+      </div>
+    </section>
 
-function removeItem(id){
- cart=cart.filter(p=>p.id!==id);
- renderCart();
-}
+    <section class="section container" id="projects">
+      <div class="section-heading reveal">
+        <p class="eyebrow">WHAT I'M BUILDING</p>
+        <h2>Featured <span class="gradient-text">Projects</span></h2>
+        <p>A collection of websites created during my learning journey.</p>
+      </div>
 
-function renderCart(){
- const box=document.getElementById("cartItems");
- const count=cart.reduce((sum,p)=>sum+p.qty,0);
- const total=cart.reduce((sum,p)=>sum+p.price*p.qty,0);
- document.getElementById("cartCount").textContent=count;
- document.getElementById("cartTotal").textContent=total;
+      <div class="projects-grid">
+        <article class="project-card glass-card reveal">
+          <div class="project-preview preview-student"><span>STUDENT</span><strong>Utility Hub.</strong><small>Tools for smarter study</small></div>
+          <div class="project-info">
+            <div class="project-meta"><span>PROJECT 01</span><span class="live-status">● LIVE</span></div>
+            <h3>Student Utility Hub</h3>
+            <p>A student-focused website featuring useful study tools and everyday learning utilities.</p>
+            <div class="tech-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            <a href="https://nirajsuthar0710.github.io/student-utility-hub/" target="_blank" rel="noopener noreferrer" class="project-link">Visit Live Website ↗</a>
+          </div>
+        </article>
 
- if(cart.length===0){
-   box.innerHTML='<p class="empty">Your cart is empty.</p>';
-   return;
- }
+        <article class="project-card glass-card reveal">
+          <div class="project-preview preview-portfolio"><span>PERSONAL</span><strong>My Portfolio.</strong><small>My work, my journey</small></div>
+          <div class="project-info">
+            <div class="project-meta"><span>PROJECT 02</span><span class="live-status">● LIVE</span></div>
+            <h3>Personal Portfolio</h3>
+            <p>A personal website introducing me and showcasing my work and progress.</p>
+            <div class="tech-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            <a href="#home" class="project-link">You Are Here ↑</a>
+          </div>
+        </article>
 
- box.innerHTML=cart.map(p=>`
-  <div class="cart-item">
-   <div><b>${p.name}</b><br>₹${p.price} × ${p.qty}</div>
-   <div>
-    <button onclick="changeQty(${p.id},-1)">−</button>
-    <button onclick="changeQty(${p.id},1)">+</button>
-    <button class="remove" onclick="removeItem(${p.id})">Remove</button>
-   </div>
-  </div>
- `).join("");
-}
+        <article class="project-card glass-card reveal">
+          <div class="project-preview preview-cafe"><span>ROYAL</span><strong>Café.</strong><small>Fresh taste, warm moments</small></div>
+          <div class="project-info">
+            <div class="project-meta"><span>PROJECT 03</span><span class="live-status">● LIVE</span></div>
+            <h3>Royal Cafe</h3>
+            <p>A cafe website concept with a stylish presentation and menu section.</p>
+            <div class="tech-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            <a href="https://nirajsuthar0710.github.io/royal-cafe/" target="_blank" rel="noopener noreferrer" class="project-link">Visit Live Website ↗</a>
+          </div>
+        </article>
 
-document.getElementById("checkoutForm").addEventListener("submit",function(e){
- e.preventDefault();
- if(cart.length===0){
-   document.getElementById("orderMessage").textContent="Please add a product to your cart first.";
-   return;
- }
- const name=document.getElementById("customerName").value.trim();
- const total=cart.reduce((sum,p)=>sum+p.price*p.qty,0);
- document.getElementById("orderMessage").textContent=
-   "Thank you, "+name+"! Demo order placed. Total: ₹"+total+". No real payment or delivery is made.";
- cart=[];
- renderCart();
- this.reset();
-});
+        <article class="project-card glass-card reveal">
+          <div class="project-preview preview-shop"><span>SHOP</span><strong>Ease.</strong><small>Simple online shopping</small></div>
+          <div class="project-info">
+            <div class="project-meta"><span>PROJECT 04</span><span class="live-status">● LIVE</span></div>
+            <h3>ShopEase</h3>
+            <p>An online store demo showcasing product cards and shopping interface features.</p>
+            <div class="tech-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            <a href="https://nirajsuthar0710.github.io/shopease/" target="_blank" rel="noopener noreferrer" class="project-link">Visit Live Website ↗</a>
+          </div>
+        </article>
 
-renderProducts();
-renderCart();
-</script>
+        <article class="project-card glass-card reveal">
+          <div class="project-preview preview-agency"><span>TECH</span><strong>Start.</strong><small>Digital solutions</small></div>
+          <div class="project-info">
+            <div class="project-meta"><span>PROJECT 05</span><span class="live-status">● LIVE</span></div>
+            <h3>TechStart Agency</h3>
+            <p>A dark premium agency website concept featuring services, pricing and projects.</p>
+            <div class="tech-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+            <a href="https://nirajsuthar0710.github.io/tech.agency/" target="_blank" rel="noopener noreferrer" class="project-link">Visit Live Website ↗</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="github-cta glass-card reveal">
+        <div><p class="eyebrow">MORE ON GITHUB</p><h3>Explore what I'm building next.</h3></div>
+        <a href="https://github.com/nirajsuthar0710" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Visit GitHub ↗</a>
+      </div>
+    </section>
+
+    <section class="section container" id="goals">
+      <div class="section-heading reveal">
+        <p class="eyebrow">MY DIRECTION</p>
+        <h2>Goals & <span class="gradient-text">Vision</span></h2>
+        <p>Small steps today, better possibilities tomorrow.</p>
+      </div>
+
+      <div class="goals-grid">
+        <article class="goal-card glass-card reveal"><span>01</span><div class="goal-icon">📚</div><h3>Keep Learning</h3><p>Strengthen my fundamentals and explore new web development concepts.</p></article>
+        <article class="goal-card glass-card reveal"><span>02</span><div class="goal-icon">💻</div><h3>Build Projects</h3><p>Create useful websites and improve my skills through practical work.</p></article>
+        <article class="goal-card glass-card reveal"><span>03</span><div class="goal-icon">🚀</div><h3>Grow Professionally</h3><p>Develop a strong portfolio and understand real-world project work.</p></article>
+      </div>
+    </section>
+
+    <section class="contact-section container" id="contact">
+      <div class="contact-card reveal">
+        <p class="eyebrow">LET'S CONNECT</p>
+        <h2>Have an idea? <span class="gradient-text">Let's explore it.</span></h2>
+        <p>Want to explore my projects or follow my learning journey? Find me on GitHub.</p>
+        <a href="https://github.com/nirajsuthar0710" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Connect on GitHub ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="#home" class="logo">NS<span>.</span></a>
+      <p>© <span id="currentYear"></span> Neeraj Suthar. Built with care.</p>
+      <span class="footer-tagline">Learn · Build · Grow</span>
+      <a href="#home" class="back-top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
